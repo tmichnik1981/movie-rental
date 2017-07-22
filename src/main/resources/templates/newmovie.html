@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Movie Rental</title>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+         $('#specialFeatures').multiselect({
+         numberDisplayed: 2
+         });
+         $('#categories').multiselect({
+         numberDisplayed: 2,
+         maxHeight: 200
+         });
+         $('#actors').multiselect({
+         numberDisplayed: 4,
+         maxHeight: 250,
+         enableFiltering: true
+         });
+
+
+        });
+
+
+    </script>
+</head>
+<body>
+<div class="row search-page" layout:fragment="page-content">
+
+    <div class="container">
+        <div class="page-header">
+            <h2>New movie</h2>
+        </div>
+    </div>
+
+    <form class="form-horizontal" role="search" th:action="@{/newmovie}" th:object="${addFilmForm}" method="post">
+
+        <div class="form-group" th:class="${#fields.hasErrors('title')} ? 'form-group has-error' : 'form-group'"  >
+            <label class="control-label col-sm-2" for="title">Movie title</label>
+            <div class="col-sm-6">
+                <input class="form-control" th:field="*{title}" id="title"
+                       type="text"/>
+                <div th:errors="*{title}" class="help-block">Błąd</div>
+            </div>
+
+        </div>
+
+        <div class="form-group" th:class="${#fields.hasErrors('description')} ? 'form-group has-error' : 'form-group'" >
+            <label class="control-label col-sm-2" for="description">Movie description</label>
+            <div class="col-sm-6">
+                <textarea class = "form-control" rows = "3" th:field="*{description}" th:errorclass="invalid" id="description" style="resize:none"></textarea>
+                <div th:errors="*{description}" class="help-block">Błąd</div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div th:class="${#fields.hasErrors('releaseYear')} ? 'has-error' : ''">
+                <label class="control-label col-sm-2" for="releaseYear">Release year</label>
+                <div class="col-sm-2">
+                    <input class="form-control" th:field="*{releaseYear}" th:errorclass="invalid" id="releaseYear"
+                           type="number"/>
+                    <div th:errors="*{releaseYear}" class="help-block">Błąd</div>
+                </div>
+            </div>
+
+            <div th:class="${#fields.hasErrors('length')} ? 'has-error' : ''">
+                <label class="control-label col-sm-2" for="length">Length</label>
+                <div class="col-sm-2">
+                    <input class="form-control" th:field="*{length}" th:errorclass="invalid" id="length" type="number"/>
+                    <div th:errors="*{length}" class="help-block">Błąd</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="language">Select language</label>
+            <div class="col-sm-2">
+                <select class="form-control" th:field="*{languageId}" id="language">
+                    <option th:each="lang : ${allLanguages}"
+                            th:value="${lang.id}"
+                            th:text="${lang.name}">Language
+                    </option>
+                </select>
+            </div>
+
+            <label class="control-label col-sm-2" for="rating">Select Rating</label>
+            <div class="col-sm-2">
+                <select class="form-control" th:field="*{rating}" id="rating">
+                    <option th:value="null">- Select -</option>
+                    <option th:each="rating : ${allRatings}"
+                            th:value="${rating}"
+                            th:text="|#{'movie.rating.' + ${rating}}|">Rating
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="categories">Select category</label>
+            <div class="col-sm-2">
+                <select class="form-control" th:field="*{categoriesIds}" id="categories" multiple="multiple">
+                    <option th:each="cat : ${allCategories}"
+                            th:value="${cat.id}"
+                            th:text="${cat.name}">Category
+                    </option>
+                </select>
+            </div>
+
+            <label class="control-label col-sm-2" for="specialFeatures">Select Special Features</label>
+            <div class="col-sm-2">
+                <select class="form-control" th:field="*{specialFeatures}" id="specialFeatures" multiple="multiple">
+                    <option th:each="feature : ${allSpecialFeatures}"
+                            th:value="${feature}"
+                            th:text="|#{'movie.specialFeature.' + ${feature}}|">Feature
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="actors">Select Actors</label>
+            <div class="col-sm-4">
+                <select class="form-control" th:field="*{actorsIds}" id="actors" multiple="multiple">
+                    <option th:each="actor : ${allActors}"
+                            th:value="${actor.id}"
+                            th:text="${actor.firstName + ' ' + actor.lastName}">Actor
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" type="submit" name="save">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
+

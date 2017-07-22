@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.css"/>
+    <link type="text/css" href="css/styles.css" rel="stylesheet"/>
+    <link type="text/css" href="css/bootstrap-multiselect.css" rel="stylesheet"/>
+
+    <script  type="text/javascript" src="/webjars/jquery/2.2.4/jquery.js"></script>
+    <script  type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+</head>
+
+<body>
+
+
+<div class="page-header">
+    <div class="container-fluid text-center">
+        <h3>Movies Rental</h3>
+    </div>
+</div>
+
+<div class="navbar navbar-inverse navbar-fixed-left">
+    <a class="navbar-brand" href="#">Menu</a>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/movies}">Movies</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/newmovie}">Add movie</a></li>
+        <li sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Sign In</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <button class="btn  btn-link" type="submit" >Sign Out</button>
+            </form>
+        </li>
+
+    </ul>
+</div>
+
+<div class="container-fluid page-content">
+    <div layout:fragment="page-content">
+        <h1>Mój pierwszy blog w Bootstrapie</h1>
+    </div>
+</div>
+
+<div id="footer" class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <p class="navbar-text text-muted text-center">&copy; Movies Rental 2016</p>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

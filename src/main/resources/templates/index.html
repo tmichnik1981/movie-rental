@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Movie Rental</title>
+</head>
+<body>
+<div layout:fragment="page-content">
+    <div class="container">
+    <div class="page-header">
+        <h2>Number of movies</h2>
+    </div>
+    <p th:text="|In our Movie Rental you can choose among ${filmsNumber} titles!|">Hello World!!!</p>
+    </div>
+</div>
+</body>
+</html>
+

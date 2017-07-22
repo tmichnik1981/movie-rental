@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Movie Details</title>
+</head>
+<body>
+<div class="row" layout:fragment="page-content">
+
+    <div class="container">
+
+        <div class="page-header">
+            <h2>Movie details</h2>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="${film.title}">Movie title</h3>
+            </div>
+            <div class="panel-body">
+                <em th:text="${film.description}"> Description</em>
+                <div>
+                    <span class="h4" >Release year: </span>
+                    <span th:text="${film.releaseYear}">2016</span>
+                </div>
+                <div>
+                    <span class="h4">Language: </span>
+                    <span th:text="${film.language.name}">English</span>
+                </div>
+                <div>
+                    <span class="h4">Length: </span>
+                    <span th:text="${film.length}">200</span>
+                </div>
+                <div>
+                    <span class="h4">Rating: </span>
+                    <span th:text="#{'movie.rating.' + ${film.rating}}">Over 18</span>
+                </div>
+
+                <div>
+                    <span class="h4">Categories:</span>
+
+                    <ul class="list-inline">
+                        <li th:if="${film.categories} != null" th:each="category : ${film.categories}" th:text="${category.name}">Horror</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Starring</div>
+            <ul class="list-group">
+                <li class="list-group-item"  th:if="${film.actors} != null"  th:each="actor : ${film.actors}" th:text="${actor.firstName +' ' + actor.lastName}">Cras justo odio</li>
+            </ul>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Full description</div>
+            <div class="panel-body"  th:if="${film.filmDescription} != null" th:text="${film.filmDescription.description}">
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
+

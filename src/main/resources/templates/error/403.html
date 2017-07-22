@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Movie Details</title>
+</head>
+<body>
+<div class="row" layout:fragment="page-content">
+
+
+    <div class="container">
+        <div class="page-header">
+            <h2>You do not have permission to access this page!</h2>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <form th:action="@{/logout}" method="post">
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Sign in as different user" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
+
